@@ -213,6 +213,7 @@ async function main() {
     '--disableFastRender',
     '--navigateToChanged',
     '--watch',
+    '--logLevel', 'info',
     '--enableGitInfo',
     '--forceSyncStatic',
     '--tlsAuto',

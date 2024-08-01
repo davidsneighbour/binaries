@@ -18,7 +18,7 @@
     "consola": "3.2.3",
     "dotenv": "16.4.5",
     "open": "10.1.0",
-    "winston": "3.13.0"
+    "winston": "3.13.1"
   },
   "devDependencies": {
     "@davidsneighbour/netlify-plugin-hugo-helper": "0.1.6",

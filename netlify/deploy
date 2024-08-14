@@ -39,6 +39,7 @@ echo
 netlify switch
 
 hugo mod get -u ./...
+rm -rf public
 npm run release
 netlify build
-netlify deploy --prod --open
+netlify deploy --prod --open --message "Deployment of v${VERSION}"

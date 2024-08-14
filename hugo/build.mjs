@@ -102,7 +102,7 @@ function parseArguments() {
  */
 function runHugo(baseURLParam) {
   // Run the clean command
-  spawnSync('npm', ['run', 'clean'], { stdio: 'inherit' });
+  // spawnSync('npm', ['run', 'clean'], { stdio: 'inherit' });
 
   // Update Hugo modules
   // spawnSync('hugo', ['mod', 'get', '-u', './...'], { stdio: 'inherit' });

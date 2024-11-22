@@ -14,7 +14,7 @@
   "homepage": "https://github.com/davidsneighbour/hugo-bin#readme",
   "dependencies": {
     "@atproto/api": "0.13.5",
-    "@clack/prompts": "0.7.0",
+    "@clack/prompts": "0.8.2",
     "consola": "3.2.3",
     "dotenv": "16.4.5",
     "open": "10.1.0",

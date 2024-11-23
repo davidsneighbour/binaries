@@ -1,0 +1,99 @@
+#!/bin/bash
+# v2024.11.23.01
+
+# Exit immediately on any command failure and print commands for debugging
+set -e
+
+# Check for required tools
+REQUIRED_TOOLS=(
+  curl
+  sed
+  git
+)
+for TOOL in "${REQUIRED_TOOLS[@]}"; do
+  if ! command -v "${TOOL}" >/dev/null; then
+    echo "${TOOL} is required..."
+    exit 1
+  fi
+done
+
+# Extract environment variables
+HOME_ENV="$HOME/.env"
+LOCAL_ENV=".env"
+
+if [ -f "$HOME_ENV" ]; then
+  echo "Exporting environment variables from $HOME_ENV"
+  set -a # Export all variables created next
+  # shellcheck source=/dev/null
+  source "$HOME_ENV"
+  set +a # Stop exporting
+else
+  echo "No $HOME_ENV file found, skipping."
+fi
+
+if [ -f "$LOCAL_ENV" ]; then
+  echo "Overriding environment variables from $LOCAL_ENV"
+  set -a
+  # shellcheck source=/dev/null
+  source "$LOCAL_ENV"
+  set +a
+else
+  echo "No $LOCAL_ENV file found."
+fi
+
+# Ensure required environment variables are loaded
+: "${GITHUB_SECRET:?Environment variable GITHUB_SECRET is not set}"
+: "${GITHUB_REPOSLUG:?Environment variable GITHUB_REPOSLUG is not set}"
+
+VERSION=$(node -pe 'require("./package.json")["version"]')
+
+# Update version in citation configuration
+FILE=CITATION.cff
+if [ -f "$FILE" ]; then
+  echo "Updating $FILE with version ${VERSION}"
+  sed -i "s/^version: .*/version: ${VERSION}/" "$FILE"
+  DATE=$(date +%F)
+  sed -i "s/date-released: .*/date-released: ${DATE}/" "$FILE"
+  git add "$FILE"
+else
+  echo "No CITATION.cff found."
+  exit 1
+fi
+
+# Create a release on GitHub
+GITHUB_REPO=https://github.com/${GITHUB_REPOSLUG}
+TAGNAME=v${VERSION}
+RELEASE_RESPONSE=$(curl \
+  -s \
+  -X POST \
+  -H "Accept: application/vnd.github+json" \
+  -H "Authorization: token ${GITHUB_SECRET}" \
+  https://api.github.com/repos/"${GITHUB_REPOSLUG}"/releases \
+  -d "{ \
+      \"tag_name\":\"${TAGNAME}\", \
+      \"name\":\"${TAGNAME}\", \
+      \"body\":\"${TAGNAME}\", \
+      \"generate_release_notes\":true, \
+      \"discussion_category_name\":\"Releases\" \
+  }")
+
+if [[ $? -ne 0 ]]; then
+  echo "Failed to create release on GitHub."
+  exit 1
+fi
+
+# Update release file
+echo "$RELEASE_RESPONSE" >release.json
+git add release.json
+git commit -m "chore(release): update repo data files" --signoff --no-verify
+
+# Push release to GitHub
+git push origin main --follow-tags
+
+# Open release for editing
+RELEASEURL="${GITHUB_REPO}/releases/edit/${TAGNAME}"
+if command -v xdg-open >/dev/null; then
+  xdg-open "${RELEASEURL}" &>/dev/null || echo "Failed to open browser for release editing."
+else
+  echo "Manual action required: Open ${RELEASEURL} to edit the release."
+fi

@@ -1,4 +1,11 @@
 Changelog
+## [0.0.3](https://github.com/davidsneighbour/binaries/compare/v0.0.2...v0.0.3) (2024-11-23)
+
+
+### Bug Fixes
+
+* proper release hooks and lib functions ([bc6ad79](https://github.com/davidsneighbour/binaries/commit/bc6ad79ce0d59ca0dc8bffe8ad31e23684ff11e8))
+
 ## [0.0.2](https://github.com/davidsneighbour/binaries/compare/v0.0.1...v0.0.2) (2024-11-23)
 
 

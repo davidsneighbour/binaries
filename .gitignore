@@ -1,5 +1,4 @@
-etc/hugo/replacements
-etc/.env
 .env
+bin
 
 node_modules

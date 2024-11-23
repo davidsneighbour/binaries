@@ -18,3 +18,11 @@ If you've already cloned a repository without its submodules, you can initialize
 ```bash
 git submodule update --init --recursive
 ```
+
+## Development
+
+Set up a symlink to the `bin` directory in the root of the repository:
+
+```bash
+ln -s . bin
+```

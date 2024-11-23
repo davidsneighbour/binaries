@@ -1,6 +1,6 @@
 {
   "name": "@davidsneighbour/binaries",
-  "description": "Bash scripts that are used across @davidsneighbour projects.",
+  "description": "scripts that are used across @davidsneighbour projects",
   "version": "0.0.1",
   "license": "MIT",
   "repository": {
@@ -12,12 +12,11 @@
     "url": "https://github.com/davidsneighbour/binaries/issues"
   },
   "homepage": "https://github.com/davidsneighbour/binaries#readme",
-  "dependencies": {},
   "devDependencies": {
     "@davidsneighbour/release-config": "2024.4.9"
   },
   "scripts": {
-    "release": "commit-and-tag-version -a -t \"v\" --releaseCommitMessageFormat \"build(release): v{{currentTag}}\" --sign && git push --follow-tags origin main"
+    "release": "commit-and-tag-version -a -t \"v\" --releaseCommitMessageFormat \"build(release): v{{currentTag}}\" --sign && ./bin/release/postrelease"
   },
   "engines": {
     "node": ">=20.12.0",

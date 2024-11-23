@@ -1,7 +1,7 @@
 {
   "name": "@davidsneighbour/binaries",
   "description": "scripts that are used across @davidsneighbour projects",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -16,6 +16,7 @@
     "@davidsneighbour/release-config": "2024.4.9"
   },
   "scripts": {
+    "test": "./test/bats/bin/bats test/test.bats",
     "release": "commit-and-tag-version -a -t \"v\" --releaseCommitMessageFormat \"build(release): v{{currentTag}}\" --sign && ./bin/repo/release/postrelease"
   },
   "engines": {

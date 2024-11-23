@@ -1,4 +1,6 @@
 Changelog
+## [0.0.4](https://github.com/davidsneighbour/binaries/compare/v0.0.3...v0.0.4) (2024-11-23)
+
 ## [0.0.3](https://github.com/davidsneighbour/binaries/compare/v0.0.1...v0.0.3) (2024-11-23)
 
 

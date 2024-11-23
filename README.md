@@ -1,7 +1,7 @@
 ![hugo-bin](.github/github-card-dark.png#gh-dark-mode-only)
 ![hugo-bin](.github/github-card-light.png#gh-light-mode-only)
 
-This is a highly experimental project at the moment and tries to combine and normalise the build system across all `@davidsneighbour/hugo-*` projects. Use with caution. Don't blame me if it breaks everything ;) Once I have a version that I trust it will reach v1.0.0.
+This is a highly experimental project at the moment and tries to combine and normalise the build system across all `@davidsneighbour/*` projects. Use with caution. Don't blame me if it breaks everything ;) Once I have a version that I trust it will reach v1.0.0.
 
 ## Principal mode of operation
 

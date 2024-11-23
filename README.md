@@ -34,4 +34,3 @@ Set up a symlink to the `bin` directory in the root of the repository:
 ```bash
 ln -s . bin
 ```
-

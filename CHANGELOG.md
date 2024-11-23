@@ -1,4 +1,11 @@
 Changelog
+## [0.0.4](https://github.com/davidsneighbour/binaries/compare/v0.0.3...v0.0.4) (2024-11-23)
+
+
+### Bug Fixes
+
+* push before creating release ([c5b8a23](https://github.com/davidsneighbour/binaries/commit/c5b8a23ff4eb6557c2bdc5ac673916c41bf58516))
+
 ## [0.0.3](https://github.com/davidsneighbour/binaries/compare/v0.0.2...v0.0.3) (2024-11-23)
 
 

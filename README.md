@@ -19,6 +19,14 @@ If you've already cloned a repository without its submodules, you can initialize
 git submodule update --init --recursive
 ```
 
+## ENV variables
+
+Set them either in $HOME directory or in the root of the repository in an `.env` file.
+
+```bash
+GITHUB_USER=davidsneighbour # Your GitHub username
+```
+
 ## Development
 
 Set up a symlink to the `bin` directory in the root of the repository:
@@ -26,3 +34,4 @@ Set up a symlink to the `bin` directory in the root of the repository:
 ```bash
 ln -s . bin
 ```
+

@@ -2,7 +2,7 @@
 
 # Function to check for required tools
 # @param $1 Array of required tool names
-check_required_tools() {
+check_requirements() {
   local tools=("$@") # Accepts an array of tool names as arguments
 
   # Show a message if no tools are specified
@@ -26,4 +26,4 @@ check_required_tools() {
 #   sed
 #   git
 # )
-# check_required_tools "${REQUIRED_TOOLS[@]}"
+# check_requirements "${REQUIRED_TOOLS[@]}"

@@ -2,7 +2,7 @@
 
 # Portable function to load and export environment variables from .env files
 # @param $1 (optional) verbosity flag: 'true' for verbose output, 'false' (default) for silent mode
-load_env_files() {
+load_env() {
   local verbose="${1:-false}" # Default to non-verbose output if not specified
   local cur_path
   cur_path="$(pwd -P)"
@@ -28,7 +28,7 @@ load_env_files() {
 
   # If '--help' was passed, show usage instructions
   if [ "$1" == "--help" ]; then
-    echo "Usage: load_env_files [verbose]"
+    echo "Usage: load_env [verbose]"
     echo "  Loads environment variables from .env files in the home directory and current project directory."
     echo "  Global variables from the home .env file are loaded first, then overridden by the local .env file."
     echo "  Parameters:"
@@ -37,6 +37,6 @@ load_env_files() {
 }
 
 # Example usage (uncomment the line below to auto-run in a script):
-# Default (silent): `load_env_files`
-# Verbose mode: `load_env_files true`
-# Show usage: `load_env_files --help`
+# Default (silent): `load_env`
+# Verbose mode: `load_env true`
+# Show usage: `load_env --help`

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Function to check for required tools
+# check for required tools
 # @param $1 Array of required tool names
 check_requirements() {
   local tools=("$@") # Accepts an array of tool names as arguments

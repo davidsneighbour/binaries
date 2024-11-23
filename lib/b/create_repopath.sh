@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Function to build a GitHub repository string "username/reponame"
+# build a GitHub repository string "username/reponame"
 # Uses the GITHUB_USER environment variable for the username
 # @returns The GitHub repository string in the GITHUB_REPOSLUG variable
 create_repopath() {

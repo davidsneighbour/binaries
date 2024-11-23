@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Function to create a GitHub release
+# create a GitHub release
 # Uses the GITHUB_SECRET and GITHUB_REPOSLUG environment variables
 # @param $1 (optional) Version string (e.g., "1.0.0"). If not provided, extracts the version from package.json.
 create_ghrelease() {

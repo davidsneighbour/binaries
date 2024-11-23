@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Portable function to load and export environment variables from .env files
+# load and export environment variables from .env files
 # @param $1 (optional) verbosity flag: 'true' for verbose output, 'false' (default) for silent mode
 load_env() {
   local verbose="${1:-false}" # Default to non-verbose output if not specified

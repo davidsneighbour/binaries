@@ -20,7 +20,8 @@ source  "${CURPATH}/bin/lib/b/_get_lib.sh"
 check_requirements "${REQUIRED_TOOLS[@]}"
 load_env
 create_repopath
-create_ghrelease
 
 # Push release to GitHub
 git push origin main --follow-tags
+
+create_ghrelease true

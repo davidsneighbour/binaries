@@ -21,3 +21,4 @@ load_env
 create_repopath
 get_next_version
 update_citation "$NEW_VERSION"
+create_changelog

@@ -1,4 +1,16 @@
 Changelog
+## [0.0.5](https://github.com/davidsneighbour/binaries/compare/v0.0.4...v0.0.5) (2024-11-24)
+
+
+### Features
+
+* add changelog creation ([ef1dd67](https://github.com/davidsneighbour/binaries/commit/ef1dd67987e186e6fc62e5a5d5d5d6bbac8623ec))
+
+
+### Bug Fixes
+
+* retrieve new version number via commit-and-tag-version ([72aed77](https://github.com/davidsneighbour/binaries/commit/72aed77f3c03b60df8b0407068e69d5831156cd3))
+
 ## [0.0.4](https://github.com/davidsneighbour/binaries/compare/v0.0.3...v0.0.4) (2024-11-23)
 
 

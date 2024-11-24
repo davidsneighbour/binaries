@@ -24,4 +24,4 @@ create_repopath
 # Push release to GitHub
 git push origin main --follow-tags
 
-create_ghrelease true
+create_ghrelease

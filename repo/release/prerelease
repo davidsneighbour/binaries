@@ -12,11 +12,12 @@ SCRIPTPATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Verbosity flag (set to 'true' for verbose output, 'false' for silent mode)
 # shellcheck disable=SC2034
-verbose=false
+verbose=true
 # shellcheck disable=SC1091
 source  "${CURPATH}/bin/lib/b/_get_lib.sh"
 
 check_requirements "${REQUIRED_TOOLS[@]}"
 load_env
 create_repopath
-update_citation
+get_next_version
+update_citation "$NEW_VERSION"

@@ -1,4 +1,25 @@
 Changelog
+## [0.0.6](https://github.com/davidsneighbour/binaries/compare/v0.0.5...v0.0.6) (2024-12-18)
+
+
+### Features
+
+* add hugo refactor script (wip) ([9b42710](https://github.com/davidsneighbour/binaries/commit/9b42710fe2ccb515f0bb866d771f4a23d72bd97f))
+* add package.json based get_next_version_2.sh ([de1d7de](https://github.com/davidsneighbour/binaries/commit/de1d7de20b2180885cae2c5b3d70223933b4c5dd))
+* refactor create_changelog function ([c0c0990](https://github.com/davidsneighbour/binaries/commit/c0c099046b038f9123e7d25218084e3353a813cd))
+
+
+### Chore
+
+* **config:** add changes.md to gitignore ([d31acb8](https://github.com/davidsneighbour/binaries/commit/d31acb82463270cf64573fac07978bd8b772ed84))
+* **setup:** add changes.md to gitignores ([55a0aaf](https://github.com/davidsneighbour/binaries/commit/55a0aaf506010e950f6c23103f855774bd7bebe1))
+
+
+### Build System
+
+* **deps:** update dependencies ([0f9f57e](https://github.com/davidsneighbour/binaries/commit/0f9f57ebfed3bb938d92b8a97cc2053be8cb3b28))
+* **deps:** update dependencies ([82fc224](https://github.com/davidsneighbour/binaries/commit/82fc224b090471be9f9f298f206d052ef34a13ff))
+
 ## [0.0.5](https://github.com/davidsneighbour/binaries/compare/v0.0.4...v0.0.5) (2024-11-24)
 
 

@@ -1,0 +1,59 @@
+#!/bin/bash
+
+# Exit immediately on any command failure and print commands for debugging
+set -e
+
+# Check for required tools
+REQUIRED_TOOLS=(curl sed git)
+# shellcheck disable=SC2034
+CURPATH="$(pwd -P)"
+# shellcheck disable=SC2034
+SCRIPTPATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Verbosity flag (set to 'true' for verbose output, 'false' for silent mode)
+# shellcheck disable=SC2034
+verbose=false
+# shellcheck disable=SC1091
+source "${CURPATH}/bin/lib/b/_get_lib.sh"
+
+usage() {
+  echo "Usage: $0 <directory>..."
+  exit 1
+}
+
+if [ $# -lt 1 ]; then
+  usage
+fi
+
+check_requirements "${REQUIRED_TOOLS[@]}"
+load_env
+
+script_directory="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
+conversion_file="$script_directory/aliases.toml"
+
+if [ ! -f "$conversion_file" ]; then
+  echo "Conversion file '$conversion_file' not found."
+  exit 1
+fi
+
+# Expand the glob patterns
+eval "set -- $@"
+
+# Loop through each provided directory
+for directory in "$@"; do
+  if [ ! -d "$directory" ]; then
+    echo "Directory '$directory' not found."
+    continue
+  fi
+
+  while IFS='=' read -r search_string replace_string; do
+    search_string=$(echo "$search_string" | tr -d '[:space:]' | tr -d '-')
+    replace_string=$(echo "$replace_string" | tr -d '[:space:]' | tr -d '"' | tr -d '-')
+
+    find "$directory" -type f -exec sed -i -E "s/(\s|\(|\{)($search_string)(\s|\)|\})/\1$replace_string\3/g" {} +
+
+    echo "Replaced '$search_string' with '$replace_string' in $directory"
+  done <"$conversion_file"
+done
+
+echo "Replacement complete."

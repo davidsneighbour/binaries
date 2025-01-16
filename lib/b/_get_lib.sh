@@ -10,28 +10,27 @@ get_lib() {
   local is_verbose="${verbose:-false}"
 
   # Check if the library directory exists
-  if [ -d "$lib_dir" ]; then
+  if [ -d "${lib_dir}" ]; then
     # Optionally display the library path being loaded
-    if [ "$is_verbose" == "true" ]; then
-      echo "Loading library files from: $lib_dir"
+    if [ "${is_verbose}" == "true" ]; then
+      echo "Loading library files from: ${lib_dir}"
     fi
 
     # Loop through and source all .sh files in the library directory
-    for lib_file in "$lib_dir"/*.sh; do
+    for lib_file in "${lib_dir}"/*.sh; do
       # Exclude this script from being sourced
-      if [ "$lib_file" != "${BASH_SOURCE[0]}" ] && [ -f "$lib_file" ]; then
-        if [ "$is_verbose" == "true" ]; then
-          echo "Sourcing: $lib_file"
+      if [ "${lib_file}" != "${BASH_SOURCE[0]}" ] && [ -f "${lib_file}" ]; then
+        if [ "${is_verbose}" == "true" ]; then
+          echo "Sourcing: ${lib_file}"
         fi
         # shellcheck source=/dev/null
-        source "$lib_file"
+        source "${lib_file}"
       fi
     done
   else
-    echo "Library directory not found: $lib_dir" >&2
+    echo "Library directory not found: ${lib_dir}" >&2
     return 1
   fi
 }
 
-# source all library files from a directory relative to its own location
 get_lib

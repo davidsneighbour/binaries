@@ -1,6 +1,6 @@
 #!/bin/bash
 
-LOGFILE="/home/patrick/shutdown_pi.log"
+LOGFILE="/home/patrick/.logs/shutdown_pi.log"
 exec > >(tee -a "${LOGFILE}") 2>&1
 
 echo "Shutdown script started at $(date)"

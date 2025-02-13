@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-import fs from 'fs';
-import path from 'path';
-import { execSync } from 'child_process';
+import { execSync } from "child_process";
+import fs from "fs";
+import path from "path";
 
 // Function to show help message
 const showHelp = () => {
@@ -25,8 +25,8 @@ Examples:
 
 // Parse CLI arguments
 const args = process.argv.slice(2).reduce((acc, arg) => {
-  const [key, value] = arg.split('=');
-  acc[key.replace('--', '')] = value;
+  const [key, value] = arg.split("=");
+  acc[key.replace("--", "")] = value;
   return acc;
 }, {});
 
@@ -35,7 +35,7 @@ if (args.help || !args.key || !args.value) {
   showHelp();
 }
 
-const baseFolder = args.folder || 'content';
+const baseFolder = args.folder || "content";
 const keyToUpdate = args.key;
 const newValue = args.value;
 
@@ -50,26 +50,30 @@ const isPackageInstalled = async (packageName) => {
 };
 
 // Ensure gray-matter is installed
-const packageName = 'gray-matter';
+const packageName = "gray-matter";
 
 isPackageInstalled(packageName).then(async (installed) => {
   if (!installed) {
     console.error(`\n⚠️  The package '${packageName}' is not installed.\n`);
     process.stdout.write("Would you like to install it now? (y/n) ");
 
-    process.stdin.setEncoding('utf8');
-    process.stdin.once('data', (answer) => {
+    process.stdin.setEncoding("utf8");
+    process.stdin.once("data", (answer) => {
       answer = answer.trim().toLowerCase();
-      if (answer === 'y') {
+      if (answer === "y") {
         console.log(`\nInstalling ${packageName}...\n`);
         try {
-          execSync(`npm install ${packageName}`, { stdio: 'inherit' });
-          console.log(`\n✅ ${packageName} installed. Please run the script again.\n`);
+          execSync(`npm install ${packageName}`, { stdio: "inherit" });
+          console.log(
+            `\n✅ ${packageName} installed. Please run the script again.\n`,
+          );
         } catch (err) {
           console.error(`\n❌ Failed to install ${packageName}. Exiting.\n`);
         }
       } else {
-        console.log(`\n❌ ${packageName} is required to run this script. Exiting.\n`);
+        console.log(
+          `\n❌ ${packageName} is required to run this script. Exiting.\n`,
+        );
       }
       process.exit();
     });
@@ -83,11 +87,11 @@ isPackageInstalled(packageName).then(async (installed) => {
      * @param {string} dir - Directory to start traversal
      */
     const processDirectory = (dir) => {
-      fs.readdirSync(dir).forEach(file => {
+      fs.readdirSync(dir).forEach((file) => {
         const fullPath = path.join(dir, file);
         if (fs.statSync(fullPath).isDirectory()) {
           processDirectory(fullPath);
-        } else if (file.endsWith('.md')) {
+        } else if (file.endsWith(".md")) {
           updateFrontmatter(fullPath);
         }
       });
@@ -98,7 +102,7 @@ isPackageInstalled(packageName).then(async (installed) => {
      * @param {string} filePath - Path to the markdown file
      */
     const updateFrontmatter = (filePath) => {
-      const content = fs.readFileSync(filePath, 'utf8');
+      const content = fs.readFileSync(filePath, "utf8");
       const parsed = matter(content);
 
       // Update the given key with the new value
@@ -106,7 +110,7 @@ isPackageInstalled(packageName).then(async (installed) => {
 
       // Convert back to markdown format
       const updatedContent = matter.stringify(parsed.content, parsed.data);
-      fs.writeFileSync(filePath, updatedContent, 'utf8');
+      fs.writeFileSync(filePath, updatedContent, "utf8");
 
       console.log(`Updated ${filePath}: Set '${keyToUpdate}' to '${newValue}'`);
     };
@@ -114,6 +118,6 @@ isPackageInstalled(packageName).then(async (installed) => {
     // Start processing
     console.log(`Scanning folder: ${baseFolder}`);
     processDirectory(baseFolder);
-    console.log('Update complete.');
+    console.log("Update complete.");
   }
 });

@@ -1,6 +1,5 @@
 const defaultStandardVersion = require("@davidsneighbour/release-config");
-const localStandardVersion = {
-};
+const localStandardVersion = {};
 
 const standardVersion = {
   ...defaultStandardVersion,

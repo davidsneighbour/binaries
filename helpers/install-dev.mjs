@@ -1,11 +1,21 @@
 #!/usr/bin/env node
 
-import { dirname, join } from 'path';
-import { fileURLToPath } from 'url';
-import fs from 'fs';
-import toml from 'toml';
-import { intro, outro, isCancel, cancel, text, confirm, select, multiselect, spinner } from '@clack/prompts';
-import shell from 'shelljs';
+import fs from "fs";
+import { dirname, join } from "path";
+import { fileURLToPath } from "url";
+import {
+  cancel,
+  confirm,
+  intro,
+  isCancel,
+  multiselect,
+  outro,
+  select,
+  spinner,
+  text,
+} from "@clack/prompts";
+import shell from "shelljs";
+import toml from "toml";
 
 // Function to display help
 function showHelp() {
@@ -25,16 +35,16 @@ const __dirname = dirname(__filename);
 
 // Parse command-line arguments
 const args = process.argv.slice(2);
-let configPath = join(__dirname, 'install-dev.toml');
-if (args.includes('--help')) {
+let configPath = join(__dirname, "install-dev.toml");
+if (args.includes("--help")) {
   showHelp();
 }
-if (args.includes('--config')) {
-  const configIndex = args.indexOf('--config');
+if (args.includes("--config")) {
+  const configIndex = args.indexOf("--config");
   if (configIndex !== -1 && args[configIndex + 1]) {
     configPath = args[configIndex + 1];
   } else {
-    console.error('Error: --config option requires a path argument.');
+    console.error("Error: --config option requires a path argument.");
     process.exit(1);
   }
 }
@@ -42,65 +52,65 @@ if (args.includes('--config')) {
 // Load and parse the TOML configuration file
 let config;
 try {
-  const tomlContent = fs.readFileSync(configPath, 'utf8');
+  const tomlContent = fs.readFileSync(configPath, "utf8");
   config = toml.parse(tomlContent);
 } catch (error) {
-  console.error('Error reading or parsing the TOML file:', error.message);
+  console.error("Error reading or parsing the TOML file:", error.message);
   process.exit(1);
 }
 
 async function main() {
-  intro('Install Dev Environment');
+  intro("Install Dev Environment");
 
   // Prepare the selection options from the config
   const options = config.tool.map(function (tool, index) {
-    return ({
+    return {
       label: tool.label,
       value: tool.exec,
-    });
+    };
   });
 
   // Display the multi-select prompt
   const selectedIndices = await multiselect({
-    message: 'Select programs to run:',
+    message: "Select programs to run:",
     options,
   });
 
   if (isCancel(selectedIndices)) {
-    cancel('Operation cancelled.');
+    cancel("Operation cancelled.");
     process.exit(0);
   }
 
   if (selectedIndices.length === 0) {
-    outro('No programs selected.');
+    outro("No programs selected.");
     process.exit(0);
   }
 
   // Confirm the selected programs
   const confirmRun = await confirm({
-    message: 'Do you want to run the selected programs?',
+    message: "Do you want to run the selected programs?",
   });
 
   if (!confirmRun) {
-    outro('Operation cancelled.');
+    outro("Operation cancelled.");
     process.exit(0);
   }
 
   // Run the selected programs
   const s = spinner();
-  s.start('Executing');
+  s.start("Executing");
   for (const command of selectedIndices) {
-    if (shell.exec(command, { stdio: 'inherit' }).code !== 0) {
+    if (shell.exec(command, { stdio: "inherit" }).code !== 0) {
       console.error(`Error executing: ${command}`);
       process.exit(1);
     }
   }
-  s.stop('Done');
+  s.stop("Done");
 
-  outro('All selected programs executed successfully.');
+  outro("All selected programs executed successfully.");
 }
 
 main().catch((error) => {
-  console.error('An unexpected error occurred:', error.message);
+  console.error("An unexpected error occurred:", error.message);
   process.exit(1);
 });

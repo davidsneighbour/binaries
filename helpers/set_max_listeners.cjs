@@ -1,5 +1,5 @@
 // set the maximum number of listeners globally
-require('events').EventEmitter.defaultMaxListeners = 20;
+require("events").EventEmitter.defaultMaxListeners = 20;
 
 // fixes the following warning
 // (node:1238552) MaxListenersExceededWarning: Possible EventEmitter memory leak

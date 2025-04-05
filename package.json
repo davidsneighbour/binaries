@@ -13,7 +13,7 @@
   },
   "homepage": "https://github.com/davidsneighbour/binaries#readme",
   "devDependencies": {
-    "@davidsneighbour/release-config": "2025.0.2"
+    "@davidsneighbour/release-config": "2025.1.1"
   },
   "scripts": {
     "test": "./test/bats/bin/bats test/test.bats",

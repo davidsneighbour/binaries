@@ -14,7 +14,7 @@ import {
   spinner,
   text,
 } from "@clack/prompts";
-import shell from "shelljs";
+import { spawnSync } from "node:child_process";
 import toml from "toml";
 
 // Function to display help
@@ -59,34 +59,45 @@ try {
   process.exit(1);
 }
 
+// Run selected commands synchronously with error handling
+function runSelectedCommands(selectedCommands) {
+  for (const command of selectedCommands) {
+    const result = spawnSync(command, {
+      stdio: "inherit",
+      shell: true,
+    });
+
+    if (result.status !== 0) {
+      console.error(`Error executing: ${command}`);
+      process.exit(result.status ?? 1);
+    }
+  }
+}
+
 async function main() {
   intro("Install Dev Environment");
 
   // Prepare the selection options from the config
-  const options = config.tool.map(function (tool, index) {
-    return {
-      label: tool.label,
-      value: tool.exec,
-    };
-  });
+  const options = config.tool.map((tool) => ({
+    label: tool.label,
+    value: tool.exec,
+  }));
 
-  // Display the multi-select prompt
-  const selectedIndices = await multiselect({
+  const selectedCommands = await multiselect({
     message: "Select programs to run:",
     options,
   });
 
-  if (isCancel(selectedIndices)) {
+  if (isCancel(selectedCommands)) {
     cancel("Operation cancelled.");
     process.exit(0);
   }
 
-  if (selectedIndices.length === 0) {
+  if (selectedCommands.length === 0) {
     outro("No programs selected.");
     process.exit(0);
   }
 
-  // Confirm the selected programs
   const confirmRun = await confirm({
     message: "Do you want to run the selected programs?",
   });
@@ -96,17 +107,12 @@ async function main() {
     process.exit(0);
   }
 
-  // Run the selected programs
   const s = spinner();
   s.start("Executing");
-  for (const command of selectedIndices) {
-    if (shell.exec(command, { stdio: "inherit" }).code !== 0) {
-      console.error(`Error executing: ${command}`);
-      process.exit(1);
-    }
-  }
-  s.stop("Done");
 
+  runSelectedCommands(selectedCommands);
+
+  s.stop("Done");
   outro("All selected programs executed successfully.");
 }
 
